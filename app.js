@@ -1,6 +1,8 @@
 
 function rowClickFunction() {
+
     alert("More information on user XYZ");
+
 }
 
 async function loadDataTable(url, table) {
@@ -42,11 +44,10 @@ async function loadDataTable(url, table) {
 
         const bs = data[i].company.bs;
 
-        const addressString = street + " " + suite + " " + city + " " + zipcode;
+        var addressString = street + " " + suite + " " + city + " " + zipcode;
 
         var row = $('<tr onclick="rowClickFunction()"/>');
 
-        
         for (var colIndex = 0; colIndex < cols.length; colIndex++) {
 
             var val = data[i][cols[colIndex]];
@@ -65,8 +66,12 @@ async function loadDataTable(url, table) {
                 row.append($('<td/>').html(bs));
             }
 
-            if (val == null) val = "";
-            row.append($('<td/>').html(val));
+            if(val == null) val = "";{
+                    if(val != "" && typeof(val) != 'object'){    
+                        row.append($('<td/>').html(val));
+                    }      
+            }
+
             
         }
         $('table').append(row);
